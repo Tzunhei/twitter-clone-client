@@ -25,6 +25,8 @@ module.exports = {
         'plugin:jsx-a11y/recommended',
         'prettier/@typescript-eslint',
         'plugin:prettier/recommended',
+        'plugin:testing-library/recommended',
+        'plugin:testing-library/react',
       ],
       rules: {
         'react/prop-types': 'off',
