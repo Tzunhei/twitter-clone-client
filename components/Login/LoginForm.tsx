@@ -41,7 +41,11 @@ const LoginForm = () => {
   });
 
   const onSubmit = (data: LoginDto) => {
-    signIn('credentials', { username: data.username, password: data.password });
+    signIn('credentials', {
+      username: data.username,
+      password: data.password,
+      callbackUrl: 'http://localhost:3005',
+    });
   };
 
   return (
