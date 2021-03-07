@@ -1,16 +1,9 @@
-import { Button } from '@material-ui/core';
-import { signIn } from 'next-auth/client';
+import LoginForm from '@components/Login/LoginForm';
 
 const SignIn = () => {
   return (
     <div>
-      <Button
-        onClick={() =>
-          signIn('google', { callbackUrl: 'http://localhost:3005/home' })
-        }
-      >
-        Sign in with Google
-      </Button>
+      <LoginForm />
     </div>
   );
 };

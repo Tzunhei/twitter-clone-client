@@ -1,14 +1,16 @@
 import SignIn from '@pages/auth/signin';
-import { fireEvent, render } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 describe('<SignIn>', () => {
   it('should render the SignIn component', async () => {
     const { getByText } = render(<SignIn />);
 
-    const googleSignInBtn = getByText('Sign in with Google');
+    const usernameInputField = getByText('username');
+    const passwordInputField = getByText('password');
+    const signInButton = getByText('Sign In');
 
-    expect(googleSignInBtn).toBeInTheDocument();
-
-    fireEvent.click(googleSignInBtn);
+    expect(usernameInputField).toBeInTheDocument();
+    expect(passwordInputField).toBeInTheDocument();
+    expect(signInButton).toBeInTheDocument();
   });
 });
