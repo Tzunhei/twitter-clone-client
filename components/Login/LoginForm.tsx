@@ -56,6 +56,7 @@ const LoginForm = () => {
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <Controller
+            inputProps={{ 'data-testid': 'username-input' }}
             as={TextField}
             variant="outlined"
             margin="normal"
@@ -67,6 +68,7 @@ const LoginForm = () => {
             helperText={errors.username?.message}
           />
           <Controller
+            inputProps={{ 'data-testid': 'password-input' }}
             as={TextField}
             variant="outlined"
             margin="normal"
