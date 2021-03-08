@@ -5,10 +5,11 @@ import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../styles/theme';
+import { SnackbarProvider } from 'notistack';
+import GlobalSWRConfig from 'configs/GlobalSWRConfig';
 
 function MyApp({ Component, pageProps }) {
   React.useEffect(() => {
-    // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side');
     if (jssStyles) {
       jssStyles.parentElement?.removeChild(jssStyles);
@@ -25,11 +26,14 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Provider session={pageProps.session}>
-          <Component {...pageProps} />
-        </Provider>
+        <SnackbarProvider maxSnack={1}>
+          <GlobalSWRConfig>
+            <Provider session={pageProps.session}>
+              <Component {...pageProps} />
+            </Provider>
+          </GlobalSWRConfig>
+        </SnackbarProvider>
       </ThemeProvider>
     </React.Fragment>
   );
