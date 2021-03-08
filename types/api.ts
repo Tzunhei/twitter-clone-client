@@ -35,3 +35,12 @@ export type ApiUser = {
 
   nb_following: number;
 };
+
+export type ApiSignUp = {
+  email: string;
+  password: string;
+  username: string;
+  first_name: string;
+  last_name: string;
+  biography: string;
+};

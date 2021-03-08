@@ -8,7 +8,10 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
+import { api } from 'api';
+import { signIn } from 'next-auth/client';
 import { Controller, useForm } from 'react-hook-form';
+import { ApiSignUp } from 'types/api';
 import * as yup from 'yup';
 
 const useStyles = makeStyles((theme) => ({
@@ -46,8 +49,21 @@ const SignUp = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: ISignUpFormInput) => {
-    console.log(data);
+  const onSubmit = async (data: ISignUpFormInput) => {
+    const newUser: ApiSignUp = {
+      email: data.email,
+      password: data.password,
+      username: data.username,
+      first_name: data.first_name,
+      last_name: data.last_name,
+      biography: data.biography,
+    };
+    const user = await api.signUp(newUser);
+    signIn('credentials', {
+      username: user.username,
+      password: user.password,
+      callbackUrl: 'http://localhost:3005',
+    });
   };
 
   return (
