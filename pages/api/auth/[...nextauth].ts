@@ -7,7 +7,7 @@ export default (req: NextApiRequest, res: NextApiResponse): Promise<void> =>
   NextAuth(req, res, {
     providers: [
       Providers.Credentials({
-        name: 'Credentials',
+        name: 'credentials',
         credentials: {
           username: {
             label: 'Username',

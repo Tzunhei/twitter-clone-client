@@ -1,7 +1,7 @@
 import SignIn from '@pages/auth/signin';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { act } from 'react-test-renderer';
-jest.mock('next-auth/client'); // SoundPlayer is now a mock constructor
+import client from 'next-auth/client';
+jest.mock('next-auth/client');
 
 describe('<SignIn>', () => {
   beforeEach(() => {
@@ -31,7 +31,10 @@ describe('<SignIn>', () => {
       ).toBeInTheDocument();
     });
   });
-  it('should redirect user to homepage on successful login', async () => {
+  it('should call signIn function on submit', async () => {
+    (client.useSession as jest.Mock).mockReturnValueOnce([undefined, false]);
+    client.signIn = jest.fn();
+
     const usernameInputField = screen.getByTestId('username-input');
     const passwordInputField = screen.getByTestId('password-input');
     const signInButton = screen.getByRole('button');
@@ -39,8 +42,10 @@ describe('<SignIn>', () => {
     fireEvent.input(usernameInputField, { target: { value: 'Super' } });
     fireEvent.input(passwordInputField, { target: { value: 'password' } });
 
-    act(() => {
-      fireEvent.submit(signInButton);
+    fireEvent.submit(signInButton);
+
+    await waitFor(() => {
+      expect(client.signIn).toHaveBeenCalledTimes(1);
     });
   });
 });
