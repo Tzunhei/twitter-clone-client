@@ -18,11 +18,20 @@ export const api = {
     return res.data;
   },
   signUp: async (newUser: ApiSignUp): Promise<ApiUser> => {
-    const res = await instance.post('/users', newUser);
-    return res.data;
+    try {
+      const res = await instance.post('/users', newUser);
+      return res.data;
+    } catch (e) {
+      console.log(e);
+      throw new Error('tes');
+    }
   },
   login: async (username: string, password: string): Promise<ApiUser> => {
-    const res = await instance.post('/auth/login', { username, password });
-    return res.data;
+    try {
+      const res = await instance.post('/auth/login', { username, password });
+      return res.data;
+    } catch (e) {
+      throw new Error('Please enter a correct username and password.');
+    }
   },
 };

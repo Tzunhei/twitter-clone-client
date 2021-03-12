@@ -3,7 +3,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import client from 'next-auth/client';
 jest.mock('next-auth/client');
 
-describe('<SignIn>', () => {
+describe('<SignIn/>', () => {
   beforeEach(() => {
     render(<SignIn />);
   });

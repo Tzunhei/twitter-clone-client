@@ -31,3 +31,12 @@ export type ApiSignUp = {
   last_name: string;
   biography: string;
 };
+
+export interface SignInResponse {
+  /** The reason for why the login process has stopped */
+  error: string | null;
+  /** @see https://developer.mozilla.org/en-US/docs/Web/API/Response/status */
+  status: number;
+  /** @see https://developer.mozilla.org/en-US/docs/Web/API/Response/ok */
+  ok: boolean;
+}

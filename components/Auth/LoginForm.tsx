@@ -4,6 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { signIn } from 'next-auth/client';
 import { useRouter } from 'next/router';
+import { useSnackbar } from 'notistack';
+import { SignInResponse } from 'types/api';
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -27,17 +29,23 @@ type LoginDto = {
 const LoginForm = () => {
   const classes = useStyles();
   const router = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
 
   const { handleSubmit, errors, control } = useForm({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: LoginDto) => {
-    signIn('credentials', {
+  const onSubmit = async (data: LoginDto) => {
+    const signInResponse: SignInResponse = ((await signIn('credentials', {
+      redirect: false,
       username: data.username,
       password: data.password,
-      callbackUrl: 'http://localhost:3005',
-    });
+    })) as unknown) as SignInResponse;
+    if (signInResponse.error) {
+      enqueueSnackbar(signInResponse.error, { variant: 'error' });
+    } else {
+      router.replace('http://localhost:3005');
+    }
   };
 
   return (

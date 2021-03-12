@@ -3,7 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "@pages/*": ["pages/*"],
-      "@components/*": ["components/*"]
+      "@components/*": ["components/*"],
+      "@api": ["api.ts"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

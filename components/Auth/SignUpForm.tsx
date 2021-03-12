@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { api } from 'api';
+import { api } from '@api';
 import { signIn } from 'next-auth/client';
 import { Controller, useForm } from 'react-hook-form';
 import { ApiSignUp } from 'types/api';
@@ -61,6 +61,7 @@ const SignUpForm = () => {
       biography: data.biography,
     };
     const user = await api.signUp(newUser);
+    console.log(user);
     signIn('credentials', {
       username: user.username,
       password: user.password,
@@ -76,6 +77,7 @@ const SignUpForm = () => {
           <Divider />
         </Box>
         <Controller
+          inputProps={{ 'data-testid': 'email-input' }}
           as={TextField}
           variant="outlined"
           margin="normal"
@@ -87,6 +89,7 @@ const SignUpForm = () => {
           helperText={errors.email?.message}
         />
         <Controller
+          inputProps={{ 'data-testid': 'username-input' }}
           as={TextField}
           variant="outlined"
           margin="normal"
@@ -98,6 +101,7 @@ const SignUpForm = () => {
           helperText={errors.username?.message}
         />
         <Controller
+          inputProps={{ 'data-testid': 'first_name-input' }}
           as={TextField}
           variant="outlined"
           margin="normal"
@@ -109,6 +113,7 @@ const SignUpForm = () => {
           helperText={errors.first_name?.message}
         />
         <Controller
+          inputProps={{ 'data-testid': 'last_name-input' }}
           as={TextField}
           variant="outlined"
           margin="normal"
@@ -120,6 +125,7 @@ const SignUpForm = () => {
           helperText={errors.last_name?.message}
         />
         <Controller
+          inputProps={{ 'data-testid': 'biography-input' }}
           multiline
           rows={4}
           as={TextField}
@@ -137,6 +143,7 @@ const SignUpForm = () => {
           <Divider />
         </Box>
         <Controller
+          inputProps={{ 'data-testid': 'password-input' }}
           type="password"
           as={TextField}
           variant="outlined"
@@ -149,6 +156,7 @@ const SignUpForm = () => {
           helperText={errors.password?.message}
         />
         <Controller
+          inputProps={{ 'data-testid': 'password_confirmation-input' }}
           type="password"
           as={TextField}
           variant="outlined"
